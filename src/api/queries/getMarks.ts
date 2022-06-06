@@ -1,6 +1,7 @@
-import { supabase } from "./../index";
 import { useQuery } from "react-query";
-import { Mark } from "../../modules/Map/types";
+
+import { supabase } from "@vie/api";
+import { Mark } from "@vie/modules/Map/types";
 
 export const useGetMarks = () => {
   return useQuery("GET_MARKS", async (): Promise<Mark[] | null> => {

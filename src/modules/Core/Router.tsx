@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { HomePage } from "../../pages/Home";
-import { MapPage } from "../../pages/Map";
+import { HomePage } from "@vie/pages/Home";
+import { MapPage } from "@vie/pages/Map";
 
 export const Router = () => {
   return (

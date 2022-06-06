@@ -1,7 +1,7 @@
 import * as MapGl from "react-map-gl";
 
-import { MAP } from "../../constants";
-import { Children } from "../../types";
+import { MAP } from "@vie/constants";
+import { Children } from "@vie/types";
 
 type Props = {
   viewState: Partial<MapGl.ViewState>;

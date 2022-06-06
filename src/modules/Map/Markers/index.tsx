@@ -1,7 +1,7 @@
 import * as MapGl from "react-map-gl";
 import { blueGrey } from "@mui/material/colors";
 
-import { Mark } from "../types";
+import { Mark } from "@vie/modules/Map/types";
 import { typeToIcon } from "./utils";
 
 type Props = {
@@ -20,7 +20,6 @@ export const Markers = ({ marks }: Props) => {
             onClick={() => console.log("clicked", mark.name)}
             clickTolerance={0.5}
           >
-            {/* <Room /> */}
             <MarkerIcon sx={{ color: blueGrey[900] }} />
           </MapGl.Marker>
         );
