@@ -4,10 +4,10 @@ import { ViewState } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 import { Map } from "../modules/Map";
-import { getInitialState } from "../constants/map";
+import { MAP } from "../constants";
 
 export const MapPage = () => {
-  const [view, setView] = useState<Partial<ViewState>>(getInitialState());
+  const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);
 
   return (
     <Map viewState={view} setViewState={(viewState) => setView(viewState)} />

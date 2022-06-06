@@ -1,6 +1,6 @@
 import * as MapGl from "react-map-gl";
 
-import { mapStyles, token } from "../../constants/map";
+import { MAP } from "../../constants";
 import { Children } from "../../types";
 
 type Props = {
@@ -17,8 +17,8 @@ export const Map = ({ children, viewState }: Props) => {
         width: "100vw",
         height: "100vh",
       }}
-      mapboxAccessToken={token}
-      mapStyle={mapStyles}
+      mapboxAccessToken={MAP.token}
+      mapStyle={MAP.styles}
       initialViewState={viewState}
       // interactiveLayerIds={[...interactiveIds]}
     >
