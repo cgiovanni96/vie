@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Children } from "../../../types";
+import { Children } from "../../../types/types";
 
 export const client = new QueryClient();
 
