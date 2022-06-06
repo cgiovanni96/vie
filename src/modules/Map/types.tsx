@@ -16,5 +16,29 @@ export type Position = {
 };
 
 export type Type = {
-  name: string;
+  name: TypeEnum;
 };
+
+export enum TypeEnum {
+  busStation = "bus-station",
+  trainStation = "train-station",
+  camping = "camping",
+  cave = "cave",
+  chapel = "chapel",
+  church = "church",
+  cicle = "cicle",
+  drinking = "drinking",
+  firefighter = "firefighter",
+  flora = "flora",
+  gardening = "gardening",
+  harbour = "harbour",
+  hospital = "hospital",
+  iat = "iat",
+  library = "library",
+  monument = "monument",
+  pharmacy = "pharmacy",
+  picnic = "picnic",
+  redcross = "redcross",
+  resistance = "resistance",
+  view = "view",
+}
