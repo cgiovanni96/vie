@@ -1,18 +1,16 @@
-import * as MapGL from "react-map-gl";
+import * as MapGl from "react-map-gl";
 
 import { mapStyles, token } from "../../constants/map";
 import { Children } from "../../types";
 
 type Props = {
-  viewState: Partial<MapGL.ViewState>;
-  setViewState: (viewState: Partial<MapGL.ViewState>) => void;
+  viewState: Partial<MapGl.ViewState>;
+  setViewState: (viewState: Partial<MapGl.ViewState>) => void;
 } & Partial<Children>;
 
 export const Map = ({ children, viewState }: Props) => {
-  console.log("MAPPA", token);
-
   return (
-    <MapGL.Map
+    <MapGl.Map
       reuseMaps
       id="mapRef"
       style={{
@@ -24,11 +22,11 @@ export const Map = ({ children, viewState }: Props) => {
       initialViewState={viewState}
       // interactiveLayerIds={[...interactiveIds]}
     >
-      <MapGL.NavigationControl position="bottom-right" />
-      <MapGL.GeolocateControl position="bottom-right" />
+      <MapGl.NavigationControl position="bottom-right" />
+      <MapGl.GeolocateControl position="bottom-right" />
 
       {children}
-    </MapGL.Map>
+    </MapGl.Map>
   );
 };
 
