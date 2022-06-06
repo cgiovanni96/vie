@@ -2,10 +2,12 @@ import * as MapGl from "react-map-gl";
 
 import { MAP } from "../../constants";
 import { Children } from "../../types";
+import { Mark } from "./types";
 
 type Props = {
   viewState: Partial<MapGl.ViewState>;
   setViewState: (viewState: Partial<MapGl.ViewState>) => void;
+  marks: Mark[];
 } & Partial<Children>;
 
 export const Map = ({ children, viewState }: Props) => {
