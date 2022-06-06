@@ -1,13 +1,15 @@
+import "mapbox-gl/dist/mapbox-gl.css";
 import { Suspense, useEffect, useState } from "react";
 import { ViewState } from "react-map-gl";
 
-import "mapbox-gl/dist/mapbox-gl.css";
-
-import { Map } from "../modules/Map";
-import { MAP } from "../constants";
-import { useGetMarks } from "../api/queries/getMarks";
-import { Markers } from "../modules/Map/Markers";
-import { Mark, TypeEnum } from "../modules/Map/types";
+//constants
+import { MAP } from "@vie/constants";
+//api
+import { useGetMarks } from "@vie/api/queries/getMarks";
+// module
+import { Map } from "@vie/modules/Map";
+import { Markers } from "@vie/modules/Map/Markers";
+import { Mark, TypeEnum } from "@vie/modules/Map/types";
 
 export const MapPage = () => {
   const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);

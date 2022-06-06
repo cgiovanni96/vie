@@ -1,5 +1,3 @@
-import { ViewState } from "react-map-gl";
-
 export const MAP = {
   styles: "mapbox://styles/cgiov996/ckkwaceo00fnb17p8z712nv8x",
   token: import.meta.env.VITE_MAP_TOKEN,
