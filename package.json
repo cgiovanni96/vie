@@ -13,9 +13,11 @@
     "@mui/icons-material": "^5.8.2",
     "@mui/material": "^5.8.2",
     "@supabase/supabase-js": "^1.35.3",
+    "i18next": "^21.8.8",
     "mapbox-gl": "^2.8.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-i18next": "^11.17.0",
     "react-map-gl": "^7.0.15",
     "react-query": "^3.39.1",
     "react-router-dom": "6"
