@@ -1,3 +1,4 @@
+import { useQuery } from "react-query";
 import { FeatureCollection } from "@vie/types/geojson";
 
 import { MAP } from "@vie/constants";
@@ -22,4 +23,20 @@ export const getDataset = async (
   } catch {
     return null;
   }
+};
+
+export const usePathsQuery = (enabled: boolean) => {
+  return useQuery("paths", () => getDataset("paths"), {
+    enabled,
+  });
+};
+
+export const useBlankPathsQuery = (enabled: boolean) => {
+  return useQuery("blank-paths", () => getDataset("blankPaths"), {
+    enabled,
+  });
+};
+
+export const useBlankPointsQuery = (enabled: boolean) => {
+  return useQuery("blank-points", () => getDataset("blankPoints"), { enabled });
 };
