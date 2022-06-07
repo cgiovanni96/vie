@@ -12,11 +12,10 @@ import { typeToIcon } from "./icons";
 type Props = {
   marks: Mark[];
   zoom?: number;
-  updateView: (longitude: number, latitude: number, zoom: number) => void;
 };
 
 export const Markers = memo(
-  ({ marks, zoom, updateView }: Props) => {
+  ({ marks, zoom }: Props) => {
     const map = MapGl.useMap();
 
     const formattedMarks = useMemo(
@@ -34,8 +33,6 @@ export const Markers = memo(
       zoom: zoom || 13.5,
       options: { radius: 50, maxZoom: 20 },
     });
-
-    console.log("supercluser", supercluster);
 
     const zoomTransition = useCallback(
       (clusterId: string) => {
@@ -60,7 +57,6 @@ export const Markers = memo(
                   latitude={latitude as number}
                   longitude={longitude as number}
                   onClick={() => {
-                    console.log("latlong", latitude, longitude, supercluster);
                     map.current &&
                       supercluster &&
                       map.current.easeTo({
