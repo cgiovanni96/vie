@@ -1,9 +1,10 @@
 import { Source, Layer } from "react-map-gl";
+import { FeatureCollection } from "geojson";
 
-import { FeatureCollection } from "@vie/types/geojson";
-import { memo } from "react";
+import { memo, useCallback } from "react";
+import { THEME } from "@vie/constants";
+import { useLayerStore } from "@vie/stores/useLayerStore";
 // import { useLayerStore } from "@store/useLayerStore";
-// import { PRIMARY_COLOR, SECONDARY_COLOR } from "@utils/config/theme";
 
 type Props = {
   data: FeatureCollection;
@@ -11,37 +12,36 @@ type Props = {
 
 export const Paths = memo(
   ({ data }: Props) => {
-    //   const { hoveredLayer, clickedLayer, setSelectedFeature } = useLayerStore();
+    const { hoveredLayer, clickedLayer, setSelectedFeature } = useLayerStore();
 
-    //   const isBefore = useCallback(
-    //     (featureId) => {
-    //       if (hoveredLayer && hoveredLayer !== featureId) return hoveredLayer;
-    //       if (clickedLayer && clickedLayer !== featureId) return clickedLayer;
-    //       return undefined;
-    //     },
-    //     [hoveredLayer, clickedLayer]
-    //   );
-
-    //   useEffect(() => {
-    //     if (clickedLayer === feature.id) setSelectedFeature(feature);
-    //   }, [clickedLayer]);
+    const isBefore = useCallback(
+      (featureId: string) => {
+        if (hoveredLayer && hoveredLayer !== featureId) return hoveredLayer;
+        if (clickedLayer && clickedLayer !== featureId) return clickedLayer;
+        return undefined;
+      },
+      [hoveredLayer, clickedLayer]
+    );
 
     return (
       <>
         {data.features.map((feature) => (
           <Source
             key={feature.id}
-            id={feature.id}
+            id={feature.id as string}
             type="geojson"
             data={feature.geometry as any}
           >
             <Layer
-              id={feature.id}
+              id={feature.id as string}
               type="line"
-              // beforeId={isBefore(feature.id)}
+              beforeId={isBefore(feature.id as string)}
               paint={{
-                "line-width": 4,
-                "line-color": "#000",
+                "line-width": clickedLayer === feature.id ? 6 : 4,
+                "line-color":
+                  clickedLayer === feature.id || hoveredLayer === feature.id
+                    ? THEME.primaryColor
+                    : THEME.secondaryColor,
               }}
             />
           </Source>

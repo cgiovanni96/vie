@@ -19,6 +19,7 @@ import { BlankMarkers } from "@vie/modules/Map/Markers/BlankMarkers";
 import { BlankPaths } from "@vie/modules/Map/Paths/BlankPaths";
 import { Paths } from "@vie/modules/Map/Paths";
 import { Navigation } from "@vie/modules/Map/Navigation";
+import { useGetInteractiveIds } from "@vie/hooks/useGetInteractiveIds";
 
 export const MapPage = () => {
   const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);
@@ -39,11 +40,17 @@ export const MapPage = () => {
   const blankPointsQuery = useBlankPointsQuery(pathsQuery.isSuccess);
   const blankPathsQuery = useBlankPathsQuery(blankPointsQuery.isSuccess);
 
+  const { interactiveIds } = useGetInteractiveIds(pathsQuery.data);
+
   return (
     <Suspense fallback={<>Loading</>}>
       <Navigation />
       {marksQuery.data && (
-        <Map viewState={view} setViewState={(viewState) => setView(viewState)}>
+        <Map
+          viewState={view}
+          setViewState={(viewState) => setView(viewState)}
+          interactiveIds={interactiveIds}
+        >
           <Markers marks={marksQuery.data} />
           {pathsQuery.data && <Paths data={pathsQuery.data} />}
 

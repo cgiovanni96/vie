@@ -1,5 +1,5 @@
+import { FeatureCollection } from "geojson";
 import { useQuery } from "react-query";
-import { FeatureCollection } from "@vie/types/geojson";
 
 import { MAP } from "@vie/constants";
 
@@ -16,12 +16,12 @@ const URLS: Record<DatasetTypes, string> = {
 
 export const getDataset = async (
   type: DatasetTypes
-): Promise<FeatureCollection | null> => {
+): Promise<FeatureCollection | undefined> => {
   try {
     const data: FeatureCollection = await (await fetch(url(URLS[type]))).json();
     return data;
   } catch {
-    return null;
+    return undefined;
   }
 };
 

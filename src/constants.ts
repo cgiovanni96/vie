@@ -13,3 +13,8 @@ export const MAP = {
     bearing: 25,
   },
 };
+
+export const THEME = {
+  primaryColor: "#556cd6",
+  secondaryColor: "#34a0a4",
+};

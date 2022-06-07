@@ -1,7 +1,6 @@
-import { Layer, Source } from "react-map-gl";
-
-import { FeatureCollection } from "@vie/types/geojson";
 import { memo } from "react";
+import { Layer, Source } from "react-map-gl";
+import { FeatureCollection } from "geojson";
 
 type Props = {
   data: FeatureCollection;
