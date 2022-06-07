@@ -1,4 +1,6 @@
 import { useMediaQuery, useTheme } from "@mui/material";
+import { DesktopNavigation } from "./DesktopNavigation";
+import { MobileNavigation } from "./MobileNavigation";
 
 export const Navigation = () => {
   const theme = useTheme();
@@ -6,8 +8,8 @@ export const Navigation = () => {
 
   return (
     <>
-      {!matches && <span>Small</span>}
-      {matches && <span>Big</span>}
+      {!matches && <MobileNavigation />}
+      {matches && <DesktopNavigation />}
     </>
   );
 };

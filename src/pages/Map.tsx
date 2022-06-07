@@ -18,6 +18,7 @@ import { Mark, TypeEnum } from "@vie/modules/Map/types";
 import { BlankMarkers } from "@vie/modules/Map/Markers/BlankMarkers";
 import { BlankPaths } from "@vie/modules/Map/Paths/BlankPaths";
 import { Paths } from "@vie/modules/Map/Paths";
+import { Navigation } from "@vie/modules/Map/Navigation";
 
 export const MapPage = () => {
   const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);
@@ -40,6 +41,7 @@ export const MapPage = () => {
 
   return (
     <Suspense fallback={<>Loading</>}>
+      <Navigation />
       {marksQuery.data && (
         <Map viewState={view} setViewState={(viewState) => setView(viewState)}>
           <Markers marks={marksQuery.data} />

@@ -7,7 +7,6 @@ export const HomePage = () => {
 
   return (
     <>
-      <Navigation />
       <Button variant="contained">{t("name")}</Button>
     </>
   );
