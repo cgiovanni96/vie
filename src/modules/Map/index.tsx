@@ -8,7 +8,7 @@ type Props = {
   setViewState: (viewState: Partial<MapGl.ViewState>) => void;
 } & Partial<Children>;
 
-export const Map = ({ children, viewState }: Props) => {
+export const Map = ({ children, viewState, setViewState }: Props) => {
   return (
     <MapGl.Map
       reuseMaps
@@ -20,7 +20,9 @@ export const Map = ({ children, viewState }: Props) => {
       mapboxAccessToken={MAP.token}
       mapStyle={MAP.styles}
       initialViewState={viewState}
-      // interactiveLayerIds={[...interactiveIds]}
+      onMove={(e) => {
+        setViewState(e.viewState);
+      }}
     >
       <MapGl.NavigationControl position="bottom-right" />
       <MapGl.GeolocateControl position="bottom-right" />

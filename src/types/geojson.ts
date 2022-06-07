@@ -1,11 +1,12 @@
+import { TypeEnum } from "@vie/modules/Map/types";
+
 export type Geometry =
   | Point
   | MultiPoint
   | LineString
   | MultiLineString
   | Polygon
-  | MultiPolygon
-  | GeometryCollection;
+  | MultiPolygon;
 export type GeometryType = Geometry["type"];
 export type GeoJson = Geometry | Feature | FeatureCollection;
 export type GeoJsonType = GeoJson["type"];
@@ -65,7 +66,7 @@ export interface GeometryCollection {
 }
 
 export interface CustomProperties {
-  path: string;
+  path?: string;
   distance?: string;
   time?: string;
   altitude?: string;
@@ -77,10 +78,22 @@ export interface Feature {
   type: "Feature";
   id: string;
   geometry: Geometry | null;
-  properties: CustomProperties | null;
+  properties: Record | null;
 }
 
 export interface FeatureCollection {
   type: "FeatureCollection";
   features: Feature[];
+}
+
+export interface ClusterFeature {
+  type: "Feature";
+  id: string;
+  geometry: Geometry;
+  properties: {
+    point_count: number;
+    cluster: boolean;
+    crimeId: string;
+    type: TypeEnum;
+  };
 }

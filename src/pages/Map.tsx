@@ -1,5 +1,5 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { ViewState } from "react-map-gl";
 
 //constants
@@ -38,11 +38,22 @@ export const MapPage = () => {
   const blankPointsQuery = useBlankPointsQuery(pathsQuery.isSuccess);
   const blankPathsQuery = useBlankPathsQuery(blankPointsQuery.isSuccess);
 
+  const updateView = useCallback(
+    (longitude: number, latitude: number, zoom: number) => {
+      setView({ ...view, longitude, latitude, zoom });
+    },
+    []
+  );
+
   return (
     <Suspense fallback={<>Loading</>}>
       {marksQuery.data && (
         <Map viewState={view} setViewState={(viewState) => setView(viewState)}>
-          <Markers marks={selectedMarks} />
+          <Markers
+            marks={marksQuery.data}
+            zoom={view.zoom}
+            updateView={updateView}
+          />
           {pathsQuery.data && <Paths data={pathsQuery.data} />}
 
           {blankPointsQuery.data && (
