@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Checkbox,
   IconButton,
@@ -12,6 +12,8 @@ import {
 import { Drawer } from "@vie/components/Drawer";
 import { useGetTypes } from "@vie/api/queries/getTypes";
 import { typeToIcon } from "../icons";
+import { Type } from "@vie/modules/Map/types";
+import { type } from "os";
 
 type Props = {
   visible: boolean;
@@ -35,8 +37,27 @@ export const FilterMenu = ({ visible, close }: Props) => {
 
 const FilterList = () => {
   const typesQuery = useGetTypes();
-
+  const [groupedTypes, setGroupedTypes] = useState<Record<string, Type[]>>();
+  const [groupOrder, setGroupOrder] = useState<Record<number, string>>();
   const [checked, setChecked] = useState([0]);
+
+  useEffect(() => {
+    if (!typesQuery.data || groupedTypes !== undefined) return;
+    const grouped: Record<string, Type[]> = {};
+    const ordered: Record<number, string> = {};
+
+    typesQuery.data.forEach((type) => {
+      const groupName = type.group.name;
+      if (!grouped[groupName]) grouped[groupName] = [];
+      grouped[groupName].push(type);
+
+      const groupOrder = type.group.order;
+      if (!ordered[groupOrder]) ordered[groupOrder] = groupName;
+    });
+
+    setGroupedTypes(grouped);
+    setGroupOrder(ordered);
+  }, [typesQuery]);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -50,6 +71,8 @@ const FilterList = () => {
 
     setChecked(newChecked);
   };
+
+  console.log("grouped", groupedTypes, groupOrder);
 
   return (
     <>

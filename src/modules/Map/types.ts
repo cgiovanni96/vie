@@ -17,6 +17,14 @@ export type Position = {
 
 export type Type = {
   name: TypeEnum;
+  text: Text;
+  group: Group;
+};
+
+export type Group = {
+  name: string;
+  text: Text;
+  order: number;
 };
 
 export enum TypeEnum {
