@@ -5,9 +5,10 @@ import { Fab } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
 
 import { Mark } from "@vie/modules/Map/types";
-import { formatMarksForClustering } from "../utils";
 import { ClusterFeature } from "@vie/types/geojson";
-import { typeToIcon } from "./icons";
+
+import { formatMarksForClustering } from "../utils";
+import { typeToIcon } from "../icons";
 
 type Props = {
   marks: Mark[];

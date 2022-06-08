@@ -21,7 +21,7 @@ import ResistanceIcon from "@mui/icons-material/Tour";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { SvgIconTypeMap } from "@mui/material";
 
-import { TypeEnum } from "../types";
+import { TypeEnum } from "./types";
 
 type Icon = OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
   muiName: string;

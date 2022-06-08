@@ -26,6 +26,7 @@ export const Map = ({
         width: "100vw",
         height: "100vh",
       }}
+      cursor={store.hoveredLayer ? "pointer" : "default"}
       mapboxAccessToken={MAP.token}
       mapStyle={MAP.styles}
       initialViewState={viewState}

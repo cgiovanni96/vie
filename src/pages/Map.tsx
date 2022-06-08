@@ -20,10 +20,14 @@ import { BlankPaths } from "@vie/modules/Map/Paths/BlankPaths";
 import { Paths } from "@vie/modules/Map/Paths";
 import { Navigation } from "@vie/modules/Map/Navigation";
 import { useGetInteractiveIds } from "@vie/hooks/useGetInteractiveIds";
+import { Menu } from "@vie/modules/Map/Navigation/Menu";
+import { FilterMenu } from "@vie/modules/Map/FilterMenu";
 
 export const MapPage = () => {
   const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);
   const [selectedMarks, setSelectedMarks] = useState<Mark[]>([]);
+  const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
+  const [filterVisibility, setFilterVisibility] = useState<boolean>(false);
 
   const marksQuery = useGetMarks();
 
@@ -44,7 +48,15 @@ export const MapPage = () => {
 
   return (
     <Suspense fallback={<>Loading</>}>
-      <Navigation />
+      <Navigation
+        toggleMenuVisibility={() => setMenuVisibility(!menuVisibility)}
+        toggleFilterVisibility={() => setFilterVisibility(!filterVisibility)}
+      />
+      <Menu visible={menuVisibility} close={() => setMenuVisibility(false)} />
+      <FilterMenu
+        visible={filterVisibility}
+        close={() => setFilterVisibility(false)}
+      />
       {marksQuery.data && (
         <Map
           viewState={view}

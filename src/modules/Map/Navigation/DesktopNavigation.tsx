@@ -3,7 +3,15 @@ import { Box, AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { FilterAlt as Filter } from "@mui/icons-material";
 import { APP } from "@vie/constants";
 
-export const DesktopNavigation = () => {
+type Props = {
+  toggleMenuVisibility: () => void;
+  toggleFilterVisibility: () => void;
+};
+
+export const DesktopNavigation = ({
+  toggleMenuVisibility,
+  toggleFilterVisibility,
+}: Props) => {
   return (
     <Box
       sx={{
@@ -32,7 +40,7 @@ export const DesktopNavigation = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            // onClick={toggleMenuVisibility}
+            onClick={toggleMenuVisibility}
           >
             <img src="/media/logo.png" alt="logo" width={34} height={34} />
           </IconButton>
@@ -44,6 +52,7 @@ export const DesktopNavigation = () => {
             edge="start"
             color="inherit"
             aria-label="filter"
+            onClick={toggleFilterVisibility}
           >
             <Filter />
           </IconButton>
