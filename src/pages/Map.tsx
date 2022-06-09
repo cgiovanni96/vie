@@ -11,10 +11,12 @@ import {
   useBlankPointsQuery,
   usePathsQuery,
 } from "@vie/api/queries/getDataset";
+//store
+import { useMarksStore } from "@vie/stores/useMarksStore";
 // module
 import { Map } from "@vie/modules/Map";
 import { Markers } from "@vie/modules/Map/Markers";
-import { Mark, TypeEnum } from "@vie/modules/Map/types";
+import { TypeEnum } from "@vie/modules/Map/types";
 import { BlankMarkers } from "@vie/modules/Map/Markers/BlankMarkers";
 import { BlankPaths } from "@vie/modules/Map/Paths/BlankPaths";
 import { Paths } from "@vie/modules/Map/Paths";
@@ -25,19 +27,16 @@ import { FilterMenu } from "@vie/modules/Map/FilterMenu";
 
 export const MapPage = () => {
   const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);
-  const [selectedMarks, setSelectedMarks] = useState<Mark[]>([]);
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [filterVisibility, setFilterVisibility] = useState<boolean>(false);
+
+  const marksStore = useMarksStore();
 
   const marksQuery = useGetMarks();
 
   useEffect(() => {
-    if (marksQuery.data && selectedMarks.length === 0) {
-      const temp = marksQuery.data.filter(
-        (mark) => mark.type.name != TypeEnum.resistance
-      );
-      setSelectedMarks(temp);
-    }
+    if (marksQuery.data && marksStore.isEmpty())
+      marksStore.setMarks(marksQuery.data);
   }, [marksQuery]);
 
   const pathsQuery = usePathsQuery(marksQuery.isSuccess);
@@ -63,7 +62,7 @@ export const MapPage = () => {
           setViewState={(viewState) => setView(viewState)}
           interactiveIds={interactiveIds}
         >
-          <Markers marks={marksQuery.data} />
+          <Markers marks={marksStore.filteredMarks} />
           {pathsQuery.data && <Paths data={pathsQuery.data} />}
 
           {blankPointsQuery.data && (

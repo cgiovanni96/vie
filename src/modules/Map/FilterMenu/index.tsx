@@ -14,6 +14,7 @@ import { useGetTypes } from "@vie/api/queries/getTypes";
 import { typeToIcon } from "../icons";
 import { Type } from "@vie/modules/Map/types";
 import { type } from "os";
+import { useGetGroupTypes } from "@vie/api/queries/getGroupType";
 
 type Props = {
   visible: boolean;
@@ -37,6 +38,7 @@ export const FilterMenu = ({ visible, close }: Props) => {
 
 const FilterList = () => {
   const typesQuery = useGetTypes();
+  const groupQuery = useGetGroupTypes();
   const [groupedTypes, setGroupedTypes] = useState<Record<string, Type[]>>();
   const [groupOrder, setGroupOrder] = useState<Record<number, string>>();
   const [checked, setChecked] = useState([0]);
@@ -76,45 +78,38 @@ const FilterList = () => {
 
   return (
     <>
-      {typesQuery.isLoading && <>Loading</>}
+      {groupQuery.isLoading && <>Loading</>}
 
-      {typesQuery.isSuccess && typesQuery.data && (
+      {groupQuery.isSuccess && groupQuery.data && (
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {typesQuery.data.map((value, i) => {
-            const labelId = `checkbox-list-label-${value}`;
-            const TypeIcon = typeToIcon(value.name);
+          {groupQuery.data
+            .sort((a, b) => a.order - b.order)
+            .map((value, i) => {
+              const labelId = `checkbox-list-label-${value}`;
 
-            return (
-              <ListItem
-                key={value.name}
-                secondaryAction={
-                  <IconButton edge="end" aria-label="comments">
-                    <TypeIcon />
-                  </IconButton>
-                }
-                disablePadding
-              >
-                <ListItemButton
-                  role={undefined}
-                  onClick={handleToggle(i)}
-                  dense
-                >
-                  <ListItemIcon>
-                    <Checkbox
-                      edge="start"
-                      checked={checked.indexOf(i) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                      inputProps={{ "aria-labelledby": labelId }}
-                    />
-                  </ListItemIcon>
-                  <ListItemText id={labelId} primary={value.name} />
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
+              return (
+                <ListItem key={value.name} disablePadding>
+                  <ListItemButton
+                    role={undefined}
+                    onClick={handleToggle(i)}
+                    dense
+                  >
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        checked={checked.indexOf(i) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                        inputProps={{ "aria-labelledby": labelId }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText id={labelId} primary={value.text.it} />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
         </List>
       )}
     </>

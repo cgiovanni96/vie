@@ -69,7 +69,7 @@ export const Drawer = ({
                   ? "300px"
                   : type === "path"
                   ? "400px"
-                  : "500px",
+                  : "400px",
             },
           }}
         >
