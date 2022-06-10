@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Checkbox,
-  IconButton,
+  Collapse,
   List,
   ListItem,
   ListItemButton,
@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 
 import { Drawer } from "@vie/components/Drawer";
-import { useGetTypes } from "@vie/api/queries/getTypes";
 import { typeToIcon } from "../icons";
-import { Type } from "@vie/modules/Map/types";
-import { type } from "os";
-import { useGetGroupTypes } from "@vie/api/queries/getGroupType";
+import { Group, Type } from "@vie/modules/Map/types";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { useMarksStore } from "@vie/stores/useMarksStore";
+import { useFormatTypes } from "@vie/hooks/useFormatTypes";
 
 type Props = {
   visible: boolean;
@@ -37,81 +37,100 @@ export const FilterMenu = ({ visible, close }: Props) => {
 };
 
 const FilterList = () => {
-  const typesQuery = useGetTypes();
-  const groupQuery = useGetGroupTypes();
-  const [groupedTypes, setGroupedTypes] = useState<Record<string, Type[]>>();
-  const [groupOrder, setGroupOrder] = useState<Record<number, string>>();
-  const [checked, setChecked] = useState([0]);
+  const marksStore = useMarksStore();
+  const { status, groups, groupOrder, groupedTypes } = useFormatTypes();
 
   useEffect(() => {
-    if (!typesQuery.data || groupedTypes !== undefined) return;
-    const grouped: Record<string, Type[]> = {};
-    const ordered: Record<number, string> = {};
+    if (marksStore.checkedTypes.length === 0) return;
+    const filterGroupString = marksStore.checkedTypes.map((idx) =>
+      groupOrder ? groupOrder[idx + 1] : ""
+    );
 
-    typesQuery.data.forEach((type) => {
-      const groupName = type.group.name;
-      if (!grouped[groupName]) grouped[groupName] = [];
-      grouped[groupName].push(type);
-
-      const groupOrder = type.group.order;
-      if (!ordered[groupOrder]) ordered[groupOrder] = groupName;
-    });
-
-    setGroupedTypes(grouped);
-    setGroupOrder(ordered);
-  }, [typesQuery]);
-
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
-
-  console.log("grouped", groupedTypes, groupOrder);
+    marksStore.filterMarks(filterGroupString);
+  }, [marksStore.checkedTypes]);
 
   return (
     <>
-      {groupQuery.isLoading && <>Loading</>}
+      {status === "loading" && <>Loading</>}
 
-      {groupQuery.isSuccess && groupQuery.data && (
-        <List
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-        >
-          {groupQuery.data
+      {status === "success" && groups && (
+        <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+          {groups
             .sort((a, b) => a.order - b.order)
             .map((value, i) => {
               const labelId = `checkbox-list-label-${value}`;
 
               return (
-                <ListItem key={value.name} disablePadding>
-                  <ListItemButton
-                    role={undefined}
-                    onClick={handleToggle(i)}
-                    dense
-                  >
-                    <ListItemIcon>
-                      <Checkbox
-                        edge="start"
-                        checked={checked.indexOf(i) !== -1}
-                        tabIndex={-1}
-                        disableRipple
-                        inputProps={{ "aria-labelledby": labelId }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText id={labelId} primary={value.text.it} />
-                  </ListItemButton>
-                </ListItem>
+                <FilterItem
+                  group={value}
+                  idx={i}
+                  label={labelId}
+                  types={groupedTypes}
+                />
               );
             })}
         </List>
       )}
+    </>
+  );
+};
+
+type ItemProps = {
+  group: Group;
+  idx: number;
+  label: string;
+  types: Record<string, Type[]> | undefined;
+};
+
+const FilterItem = ({ group, idx, label, types }: ItemProps) => {
+  const marksStore = useMarksStore();
+  const [visibility, setVisibility] = useState<boolean>(
+    marksStore.checkedTypes.indexOf(idx) !== -1
+  );
+
+  const itemClick = () => {
+    marksStore.setCheckedTypes(idx);
+    setVisibility(!visibility);
+  };
+
+  return (
+    <>
+      <ListItem key={group.name}>
+        <ListItemButton role={undefined} onClick={itemClick} dense>
+          <ListItemIcon>
+            <Checkbox
+              edge="start"
+              checked={marksStore.checkedTypes.indexOf(idx) !== -1}
+              tabIndex={-1}
+              disableRipple
+              inputProps={{ "aria-labelledby": label }}
+            />
+          </ListItemIcon>
+          <ListItemText
+            id={label}
+            primary={group.text.it}
+            primaryTypographyProps={{ fontSize: 18, fontWeight: "medium" }}
+          />
+          {!visibility ? <ExpandMore /> : <ExpandLess />}
+        </ListItemButton>
+      </ListItem>
+      <Collapse in={visibility} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding sx={{ marginLeft: 3 }}>
+          {types &&
+            types[group.name].length > 0 &&
+            types[group.name].map((type) => {
+              const MarkIcon = typeToIcon(type.name);
+              return (
+                <ListItemButton key={type.name} sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <MarkIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={type.text.it} />
+                </ListItemButton>
+              );
+            })}
+        </List>
+      </Collapse>
     </>
   );
 };

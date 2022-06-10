@@ -8,7 +8,9 @@ export const useGetMarks = () => {
     try {
       const response = await supabase
         .from<Mark>("Marks")
-        .select("name, position(latitude, longitude), type (name)");
+        .select(
+          "name, position(latitude, longitude), type (name, group(name))"
+        );
       return response.data;
     } catch {
       throw new Error("Marks error");
