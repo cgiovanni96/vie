@@ -2,7 +2,11 @@ import { FilterAlt as Filter } from "@mui/icons-material";
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { APP } from "@vie/constants";
 
-export const MobileNavigation = () => {
+type Props = {
+  toggleFilterVisibility: () => void;
+};
+
+export const MobileNavigation = ({ toggleFilterVisibility }: Props) => {
   return (
     <AppBar
       position="fixed"
@@ -23,6 +27,7 @@ export const MobileNavigation = () => {
           edge="start"
           color="inherit"
           aria-label="filter"
+          onClick={toggleFilterVisibility}
         >
           <Filter />
         </IconButton>

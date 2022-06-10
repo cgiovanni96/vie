@@ -16,7 +16,9 @@ export const Navigation = ({
 
   return (
     <>
-      {!matches && <MobileNavigation />}
+      {!matches && (
+        <MobileNavigation toggleFilterVisibility={toggleFilterVisibility} />
+      )}
       {matches && (
         <DesktopNavigation
           toggleMenuVisibility={toggleMenuVisibility}
