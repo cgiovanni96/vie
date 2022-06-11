@@ -44,6 +44,6 @@ export const useMarksStore = create<MarksStore>((set, get) => ({
     set({ checkedTypes: newChecked });
   },
 
-  setAll: () => set({ filteredMarks: get().marks }),
+  setAll: () => set({ filteredMarks: get().marks, checkedTypes: [] }),
   isEmpty: () => get().marks.length === 0,
 }));

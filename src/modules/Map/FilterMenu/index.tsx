@@ -55,20 +55,48 @@ const FilterList = () => {
 
       {status === "success" && groups && (
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-          {groups
-            .sort((a, b) => a.order - b.order)
-            .map((value, i) => {
-              const labelId = `checkbox-list-label-${value}`;
-
-              return (
-                <FilterItem
-                  group={value}
-                  idx={i}
-                  label={labelId}
-                  types={groupedTypes}
+          <>
+            <ListItem key="all-groups">
+              <ListItemButton
+                role={undefined}
+                onClick={() => marksStore.setAll()}
+                dense
+              >
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    checked={marksStore.checkedTypes.length === 0}
+                    tabIndex={-1}
+                    disableRipple
+                    inputProps={{ "aria-labelledby": "all" }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  id={"all-groups"}
+                  primary={"Tutti"}
+                  primaryTypographyProps={{
+                    fontSize: 18,
+                    fontWeight: "medium",
+                  }}
                 />
-              );
-            })}
+              </ListItemButton>
+            </ListItem>
+
+            {groups
+              .sort((a, b) => a.order - b.order)
+              .map((value, i) => {
+                const labelId = `checkbox-list-label-${value}`;
+
+                return (
+                  <FilterItem
+                    group={value}
+                    idx={i}
+                    label={labelId}
+                    types={groupedTypes}
+                  />
+                );
+              })}
+          </>
         </List>
       )}
     </>
@@ -92,6 +120,11 @@ const FilterItem = ({ group, idx, label, types }: ItemProps) => {
     marksStore.setCheckedTypes(idx);
     setVisibility(!visibility);
   };
+
+  useEffect(() => {
+    const visibile = marksStore.checkedTypes.indexOf(idx) !== -1;
+    setVisibility(visibile);
+  }, [marksStore.checkedTypes]);
 
   return (
     <>
