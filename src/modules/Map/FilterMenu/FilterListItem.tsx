@@ -15,6 +15,7 @@ import { useMarksStore } from "@vie/stores/useMarksStore";
 
 import { typeToIcon } from "../icons";
 import { Group, Type } from "../types";
+import { TextSwitcher } from "../Text";
 
 type Props = {
   group: Group;
@@ -54,7 +55,7 @@ export const FilterListItem = ({ group, idx, label, types }: Props) => {
           </ListItemIcon>
           <ListItemText
             id={label}
-            primary={group.text.it}
+            primary={<TextSwitcher text={group.text} />}
             primaryTypographyProps={{ fontSize: 18, fontWeight: "medium" }}
           />
           {!visibility ? <ExpandMore /> : <ExpandLess />}
@@ -71,7 +72,7 @@ export const FilterListItem = ({ group, idx, label, types }: Props) => {
                   <ListItemIcon>
                     <MarkIcon />
                   </ListItemIcon>
-                  <ListItemText primary={type.text.it} />
+                  <ListItemText primary={<TextSwitcher text={type.text} />} />
                 </ListItemButton>
               );
             })}

@@ -1,5 +1,5 @@
 import { Feature } from "@vie/types/geojson";
-import { Mark } from "./types";
+import { Mark, Text } from "./types";
 
 export const formatMarksForClustering = (marks: Mark[]): Feature[] => {
   return marks.map((mark) => ({
@@ -11,4 +11,8 @@ export const formatMarksForClustering = (marks: Mark[]): Feature[] => {
       coordinates: [mark.position.longitude, mark.position.latitude],
     },
   }));
+};
+
+export const getText = (text: Text, language: "it" | "eng") => {
+  return text[language];
 };
