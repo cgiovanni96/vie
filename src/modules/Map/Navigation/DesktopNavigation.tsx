@@ -2,6 +2,7 @@ import { Box, AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 
 import { FilterAlt as Filter } from "@mui/icons-material";
 import { APP } from "@vie/constants";
+import { LanguageSwitcher } from "@vie/components/LanguageSwitcher";
 
 type Props = {
   toggleMenuVisibility: () => void;
@@ -47,6 +48,7 @@ export const DesktopNavigation = ({
           <Typography variant="subtitle1" component="div" sx={{ flexGrow: 1 }}>
             {APP.name}
           </Typography>
+          <LanguageSwitcher />
           <IconButton
             size="small"
             edge="start"

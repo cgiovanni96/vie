@@ -1,5 +1,6 @@
 {
     "translation": {
-        "name": "Road"
+        "name": "Road",
+        "filterMenuHeader": "Filter"
     }
 }
