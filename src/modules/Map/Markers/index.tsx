@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import * as MapGl from "react-map-gl";
 import useSuperCluster from "use-supercluster";
 import { Fab } from "@mui/material";
@@ -9,6 +9,7 @@ import { ClusterFeature } from "@vie/types/geojson";
 
 import { formatMarksForClustering } from "../utils";
 import { typeToIcon } from "../icons";
+import { InfoDrawer } from "./InfoDrawer";
 
 type Props = {
   marks: Mark[];
@@ -17,6 +18,7 @@ type Props = {
 
 export const Markers = memo(
   ({ marks, zoom }: Props) => {
+    const [selectedMark, setSelectedMark] = useState<Mark>();
     const map = MapGl.useMap();
 
     const formattedMarks = useMemo(
@@ -44,6 +46,10 @@ export const Markers = memo(
 
     return (
       <>
+        <InfoDrawer
+          mark={selectedMark}
+          clearMark={() => setSelectedMark(undefined)}
+        />
         {clusters.length > 0 &&
           clusters.map((cluster: ClusterFeature) => {
             const [longitude, latitude] = cluster.geometry.coordinates;
@@ -72,13 +78,13 @@ export const Markers = memo(
               );
             }
 
-            const MarkerIcon = typeToIcon(cluster.properties.type);
+            const MarkerIcon = typeToIcon(cluster.properties.type.name);
             return (
               <MapGl.Marker
                 key={cluster.id}
                 latitude={latitude as number}
                 longitude={longitude as number}
-                onClick={() => console.log("clicked", cluster.id)}
+                onClick={() => setSelectedMark(cluster.properties)}
                 clickTolerance={0.5}
               >
                 <MarkerIcon sx={{ color: blueGrey[900] }} />

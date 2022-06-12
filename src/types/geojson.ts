@@ -1,4 +1,4 @@
-import { TypeEnum } from "@vie/modules/Map/types";
+import { Mark, TypeEnum } from "@vie/modules/Map/types";
 
 export type Geometry =
   | Point
@@ -91,9 +91,7 @@ export interface ClusterFeature {
   id: string;
   geometry: Geometry;
   properties: {
-    point_count: number;
+    point_count?: number;
     cluster: boolean;
-    crimeId: string;
-    type: TypeEnum;
-  };
+  } & Mark;
 }

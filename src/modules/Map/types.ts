@@ -3,6 +3,7 @@ export type Mark = {
   text: Text;
   position: Position;
   type: Type;
+  media: string[];
 };
 
 export type Text = {
