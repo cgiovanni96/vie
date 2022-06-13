@@ -1,9 +1,10 @@
 import { Close } from "@mui/icons-material";
 import { Box, Typography, IconButton } from "@mui/material";
+import { ReactNode } from "react";
 
 export type DrawerHeaderProps = {
   close: () => void;
-  title?: string;
+  title?: string | ReactNode;
 };
 
 export const Header = ({ close, title }: DrawerHeaderProps) => {
@@ -16,7 +17,12 @@ export const Header = ({ close, title }: DrawerHeaderProps) => {
         p: 2,
       }}
     >
-      {title && <Typography variant="h6">{title}</Typography>}
+      {title && typeof title === "string" ? (
+        <Typography variant="h6">{title}</Typography>
+      ) : (
+        <>{title}</>
+      )}
+
       <IconButton color="inherit" onClick={close}>
         <Close />
       </IconButton>

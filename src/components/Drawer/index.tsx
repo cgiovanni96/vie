@@ -15,7 +15,7 @@ export type DrawerProps = {
   close: () => void;
   elevation: number;
   children: ReactNode;
-  title?: string;
+  title?: string | ReactNode;
   type: "navigation" | "path" | "filter";
   side: "left" | "right";
 };

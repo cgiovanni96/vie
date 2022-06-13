@@ -1,31 +1,13 @@
-import { Box, Button, Divider, Grid, Paper, Typography } from "@mui/material";
+import { memo } from "react";
+import { Box, Divider, Typography } from "@mui/material";
 
-import { Timer, LineWeight, Signpost, MenuBook } from "@mui/icons-material";
-import { useLayerStore } from "@vie/stores/useLayerStore";
+import { useGetImage } from "@vie/api/queries/getImage";
+import { Mark } from "@vie/modules/Map/types";
 import { Drawer } from "@vie/components/Drawer";
 import { Children } from "@vie/types/types";
-import { Mark } from "@vie/modules/Map/types";
-import { useGetImage } from "@vie/api/queries/getImage";
-import { memo } from "react";
-
-const Item = ({ children }: Children) => {
-  return (
-    <Grid item xs={4}>
-      <Paper
-        elevation={0}
-        sx={{
-          p: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        {children}
-      </Paper>
-    </Grid>
-  );
-};
+import { TextSwitcher } from "@vie/modules/Map/Text";
+import { TypeEnum, Text } from "@vie/modules/Map/types";
+import { typeToIcon } from "../icons";
 
 export type DrawerDrividerProps = {
   margin: number;
@@ -63,8 +45,19 @@ type Props = {
   clearMark: () => void;
 };
 
-// https://mzxteidxlrdbrolvnbie.supabase.co/storage/v1/object/marks/gardening/gardening4.jpeg
-// https://mzxteidxlrdbrolvnbie.supabase.co/storage/v1/object/marks/gardening/gardening4.jpeg
+const DrawerTitle = ({ type, text }: { type?: TypeEnum; text?: Text }) => {
+  if (!type || !text) return <>{""}</>;
+
+  const Icon = typeToIcon(type);
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Icon />
+      <Typography variant="h6" sx={{ marginLeft: 2 }}>
+        <TextSwitcher text={text} />
+      </Typography>
+    </Box>
+  );
+};
 
 export const InfoDrawer = memo(
   ({ mark, clearMark }: Props) => {
@@ -77,45 +70,48 @@ export const InfoDrawer = memo(
       path: mark && mark.media[0],
     });
 
-    console.log("SELECTED", mark);
-
     return (
       <Drawer
         visible={mark !== undefined}
         close={() => closeDrawer()}
+        title={
+          <DrawerTitle
+            type={mark && mark.type.name}
+            text={mark && mark.type.group.text}
+          />
+        }
         elevation={2}
         type="path"
         side="left"
       >
-        {imageQuery.data && (
-          <img
-            src={URL.createObjectURL(imageQuery.data)}
-            alt={mark && mark.media[0]}
-            width="100%"
-            height="300px"
-            style={{ objectFit: "cover" }}
-          />
+        {mark && (
+          <>
+            {imageQuery.data && (
+              <img
+                src={URL.createObjectURL(imageQuery.data)}
+                alt={mark && mark.media[0]}
+                width="100%"
+                height="300px"
+                style={{ objectFit: "cover" }}
+              />
+            )}
+
+            <DrawerDivider margin={1} />
+
+            <DrawerBox align="left" grow>
+              <Typography>
+                <TextSwitcher text={mark.text} />
+              </Typography>
+            </DrawerBox>
+          </>
         )}
-
-        <DrawerDivider margin={1} />
-
-        <DrawerBox align="left" grow>
-          <Typography>{mark && mark.text.it}</Typography>
-        </DrawerBox>
-
-        <DrawerBox align="center">
-          <Button
-            variant="contained"
-            disableElevation
-            sx={{ marginBottom: 1, width: "100%" }}
-          >
-            Leggi
-          </Button>
-        </DrawerBox>
       </Drawer>
     );
   },
   (prev, next) => {
-    return prev.mark === next.mark;
+    return (
+      (prev.mark === undefined && next.mark === undefined) ||
+      (!!prev.mark && !!next.mark && prev.mark.name === next.mark.name)
+    );
   }
 );
