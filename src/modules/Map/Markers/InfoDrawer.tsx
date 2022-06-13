@@ -72,12 +72,12 @@ export const InfoDrawer = memo(
       clearMark();
     };
 
-    // const imageQuery = useGetImage({
-    //   bucket: "marks",
-    //   path: mark && mark.media[0],
-    // });
+    const imageQuery = useGetImage({
+      bucket: "marks",
+      path: mark && mark.media[0],
+    });
 
-    // console.log("SELECTED", mark);
+    console.log("SELECTED", mark);
 
     return (
       <Drawer
@@ -87,14 +87,15 @@ export const InfoDrawer = memo(
         type="path"
         side="left"
       >
-        {/* {imageQuery.data && (
+        {imageQuery.data && (
           <img
             src={URL.createObjectURL(imageQuery.data)}
             alt={mark && mark.media[0]}
             width="100%"
-            height="200px"
+            height="300px"
+            style={{ objectFit: "cover" }}
           />
-        )} */}
+        )}
 
         <DrawerDivider margin={1} />
 
