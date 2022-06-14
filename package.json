@@ -13,6 +13,7 @@
     "@mui/icons-material": "^5.8.2",
     "@mui/material": "^5.8.2",
     "@supabase/supabase-js": "^1.35.3",
+    "@types/supercluster": "^7.1.0",
     "country-flag-icons": "^1.5.5",
     "i18next": "^21.8.8",
     "mapbox-gl": "^2.8.2",

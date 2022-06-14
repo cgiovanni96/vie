@@ -1,9 +1,10 @@
-import { ClusterFeature, Feature } from "@vie/types/geojson";
+// import { ClusterFeature, Feature } from "@vie/types/geojson";
+import { Clusters } from "@vie/types/geojson";
 import { Mark, Text } from "./types";
 
-export const formatMarksForClustering = (marks: Mark[]): ClusterFeature[] => {
-  return marks.map((mark) => ({
-    id: mark.name,
+export const formatMarksForClustering = (marks: Mark[]): Clusters => {
+  return marks.map((mark, i) => ({
+    id: i,
     type: "Feature",
     properties: { cluster: false, ...mark },
     geometry: {

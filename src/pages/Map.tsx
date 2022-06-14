@@ -62,7 +62,7 @@ export const MapPage = () => {
           setViewState={(viewState) => setView(viewState)}
           interactiveIds={interactiveIds}
         >
-          <Markers marks={marksStore.filteredMarks} />
+          <Markers marks={marksStore.filteredMarks} zoom={view.zoom} />
           {pathsQuery.data && <Paths data={pathsQuery.data} />}
 
           {blankPointsQuery.data && (
