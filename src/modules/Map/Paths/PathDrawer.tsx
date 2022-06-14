@@ -1,7 +1,19 @@
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Divider,
+  Grid,
+  Paper,
+  Typography,
+} from "@mui/material";
+import { Timer, LineWeight, Signpost, MenuBook } from "@mui/icons-material";
+
+import { useGetPath } from "@vie/api/queries/getPath";
+
 import { Drawer } from "@vie/components/Drawer";
-import { useLayerStore } from "@vie/stores/useLayerStore";
 import { FeaturePath } from "@vie/types/geojson";
-import { Feature, LineString } from "geojson";
+import { Children } from "@vie/types/types";
 import { memo } from "react";
 
 type Props = {
@@ -9,9 +21,62 @@ type Props = {
   close: () => void;
 };
 
+const Item = ({ children }: Children) => {
+  return (
+    <Grid item xs={4}>
+      <Paper
+        elevation={0}
+        sx={{
+          p: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        {children}
+      </Paper>
+    </Grid>
+  );
+};
+
+export type DrawerDrividerProps = {
+  margin: number;
+};
+const DrawerDivider = ({ margin }: DrawerDrividerProps) => {
+  return <Divider sx={{ marginTop: margin, marginBottom: margin }} />;
+};
+
+export type DrawerBoxProps = {
+  align: "center" | "left";
+  grow?: boolean;
+} & Children;
+const DrawerBox = ({ children, align, grow }: DrawerBoxProps) => {
+  return (
+    <Box
+      sx={{
+        width: "90%",
+        marginLeft: "auto",
+        marginRight: "auto",
+        marginTop: 2,
+        textAlign: align,
+        flex: grow ? 1 : 0,
+        display: "flex",
+        justifyContent: !grow ? "space-between" : "flex-start",
+        alignItems: !grow ? "center" : "flex-start",
+      }}
+    >
+      {children}
+    </Box>
+  );
+};
+
 export const PathDrawer = memo(
   ({ featurePath, close }: Props) => {
-    console.log("featurePath", featurePath);
+    const pathQuery = useGetPath({
+      path: featurePath && featurePath.properties.path,
+    });
+
     return (
       <Drawer
         visible={featurePath !== undefined}
@@ -20,7 +85,48 @@ export const PathDrawer = memo(
         type="path"
         elevation={2}
       >
-        <>{featurePath?.properties.path}</>
+        {!pathQuery.data || (pathQuery.isLoading && <CircularProgress />)}
+        {pathQuery.data && (
+          <>
+            <DrawerBox align="left">
+              <Typography variant="body1" sx={{ paddingRight: 10 }}>
+                {pathQuery.data.title}
+              </Typography>
+              <a href={`/sentieri/`}>
+                <Button component="a" variant="contained" disableElevation>
+                  <MenuBook />
+                </Button>
+              </a>
+            </DrawerBox>
+
+            <DrawerDivider margin={1} />
+
+            <Grid container spacing={0}>
+              <Item>
+                <Timer color="primary" />
+                <Typography>{pathQuery.data.duration}</Typography>
+              </Item>
+              <Item>
+                <LineWeight color="primary" />
+                <Typography>{pathQuery.data.altitude}</Typography>
+              </Item>
+              <Item>
+                <Signpost color="primary" />
+                <Typography>{pathQuery.data.height}</Typography>
+              </Item>
+            </Grid>
+
+            <DrawerDivider margin={1} />
+
+            {/* <DrawerBox align="left" grow>
+            <Typography>
+              <div
+                dangerouslySetInnerHTML={{ __html: data.fields.introduction }}
+              />
+            </Typography>
+          </DrawerBox>  */}
+          </>
+        )}
       </Drawer>
     );
   },

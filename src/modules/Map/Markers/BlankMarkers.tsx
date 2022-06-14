@@ -14,7 +14,7 @@ export const BlankMarkers = memo(
           id="marker"
           source="markers"
           type="symbol"
-          layout={{ "icon-image": "mountain" }}
+          layout={{ "icon-image": "embassy" }}
         />
       </Source>
     );
