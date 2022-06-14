@@ -1,5 +1,5 @@
 import { Mark } from "@vie/modules/Map/types";
-import { Feature, Point } from "geojson";
+import { Feature, FeatureCollection, LineString, Point } from "geojson";
 
 export type ClusterProperties = {
   cluster: boolean;
@@ -8,3 +8,6 @@ export type ClusterProperties = {
 
 export type Cluster = Feature<Point, ClusterProperties>;
 export type Clusters = Cluster[];
+
+export type FeaturePath = Feature<LineString, { path: string }>;
+export type FeaturePaths = FeatureCollection<LineString, { path: string }>;

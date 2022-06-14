@@ -16,7 +16,6 @@ import { useMarksStore } from "@vie/stores/useMarksStore";
 // module
 import { Map } from "@vie/modules/Map";
 import { Markers } from "@vie/modules/Map/Markers";
-import { TypeEnum } from "@vie/modules/Map/types";
 import { BlankMarkers } from "@vie/modules/Map/Markers/BlankMarkers";
 import { BlankPaths } from "@vie/modules/Map/Paths/BlankPaths";
 import { Paths } from "@vie/modules/Map/Paths";
@@ -24,14 +23,16 @@ import { Navigation } from "@vie/modules/Map/Navigation";
 import { useGetInteractiveIds } from "@vie/hooks/useGetInteractiveIds";
 import { Menu } from "@vie/modules/Map/Navigation/Menu";
 import { FilterMenu } from "@vie/modules/Map/FilterMenu";
+import { PathDrawer } from "@vie/modules/Map/Paths/PathDrawer";
+import { useLayerStore } from "@vie/stores/useLayerStore";
 
 export const MapPage = () => {
   const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);
   const [menuVisibility, setMenuVisibility] = useState<boolean>(false);
   const [filterVisibility, setFilterVisibility] = useState<boolean>(false);
 
+  const layerStore = useLayerStore();
   const marksStore = useMarksStore();
-
   const marksQuery = useGetMarks();
 
   useEffect(() => {
@@ -55,6 +56,10 @@ export const MapPage = () => {
       <FilterMenu
         visible={filterVisibility}
         close={() => setFilterVisibility(false)}
+      />
+      <PathDrawer
+        featurePath={layerStore.selectedFeature}
+        close={() => layerStore.setSelectedFeature(undefined)}
       />
       {marksQuery.data && (
         <Map

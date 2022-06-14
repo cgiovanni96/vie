@@ -28,6 +28,14 @@ export type Group = {
   order: number;
 };
 
+export type Path = {
+  name: string;
+  title: string;
+  duration: string;
+  height: string;
+  altitude: string;
+};
+
 export enum TypeEnum {
   busStation = "bus-station",
   trainStation = "train-station",

@@ -1,13 +1,13 @@
 import { Source, Layer } from "react-map-gl";
-import { FeatureCollection } from "geojson";
 
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { THEME } from "@vie/constants";
 import { useLayerStore } from "@vie/stores/useLayerStore";
+import { FeaturePaths } from "@vie/types/geojson";
 // import { useLayerStore } from "@store/useLayerStore";
 
 type Props = {
-  data: FeatureCollection;
+  data: FeaturePaths;
 };
 
 export const Paths = memo(
@@ -22,6 +22,12 @@ export const Paths = memo(
       },
       [hoveredLayer, clickedLayer]
     );
+
+    useEffect(() => {
+      const layer = data.features.find((f) => f.id === clickedLayer);
+      if (!layer) return;
+      setSelectedFeature(layer);
+    }, [clickedLayer]);
 
     return (
       <>

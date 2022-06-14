@@ -1,7 +1,8 @@
-import { FeatureCollection } from "geojson";
 import { useQuery } from "react-query";
 
 import { MAP } from "@vie/constants";
+import { FeaturePaths } from "@vie/types/geojson";
+import { FeatureCollection } from "geojson";
 
 const url = (dataset: string) =>
   `https://api.mapbox.com/datasets/v1/cgiov996/${dataset}/features?access_token=${MAP.token}`;
@@ -16,9 +17,9 @@ const URLS: Record<DatasetTypes, string> = {
 
 export const getDataset = async (
   type: DatasetTypes
-): Promise<FeatureCollection | undefined> => {
+): Promise<FeaturePaths | undefined> => {
   try {
-    const data: FeatureCollection = await (await fetch(url(URLS[type]))).json();
+    const data: FeaturePaths = await (await fetch(url(URLS[type]))).json();
     return data;
   } catch {
     return undefined;
