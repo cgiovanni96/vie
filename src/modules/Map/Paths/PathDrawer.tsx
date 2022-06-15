@@ -21,6 +21,7 @@ import { Drawer } from "@vie/components/Drawer";
 import { FeaturePath } from "@vie/types/geojson";
 import { Children } from "@vie/types/types";
 import { memo } from "react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   featurePath?: FeaturePath;
@@ -47,11 +48,12 @@ const Item = ({ children }: Children) => {
 };
 
 const DrawerTitle = () => {
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Hiking />
       <Typography variant="h6" sx={{ marginLeft: 2 }}>
-        Percorsi
+        {t("pathDrawerTitle")}
       </Typography>
     </Box>
   );

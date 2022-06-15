@@ -1,6 +1,7 @@
 {
     "translation": {
         "name": "Road",
-        "filterMenuHeader": "Filter"
+        "filterMenuHeader": "Filter",
+        "pathDrawerTitle": "Hikes"
     }
 }

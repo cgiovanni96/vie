@@ -1,6 +1,7 @@
 {
     "translation": {
         "name": "VieDiArdesia",
-        "filterMenuHeader": "Filtri"
+        "filterMenuHeader": "Filtri",
+        "pathDrawerTitle": "Sentieri"
     }
 }
