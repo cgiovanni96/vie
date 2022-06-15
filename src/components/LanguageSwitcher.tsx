@@ -63,8 +63,11 @@ export const LanguageSwitcher = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (language: "it" | "eng") => {
-    languageStore.setLanguage(language);
-    i18n.changeLanguage(language);
+    if (typeof language === "string") {
+      languageStore.setLanguage(language);
+      i18n.changeLanguage(language);
+    }
+
     setAnchorEl(null);
   };
 
