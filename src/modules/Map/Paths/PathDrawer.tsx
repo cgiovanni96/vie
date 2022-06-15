@@ -7,7 +7,13 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { Timer, LineWeight, Signpost, MenuBook } from "@mui/icons-material";
+import {
+  Hiking,
+  Timer,
+  LineWeight,
+  Signpost,
+  MenuBook,
+} from "@mui/icons-material";
 
 import { useGetPath } from "@vie/api/queries/getPath";
 
@@ -37,6 +43,17 @@ const Item = ({ children }: Children) => {
         {children}
       </Paper>
     </Grid>
+  );
+};
+
+const DrawerTitle = () => {
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Hiking />
+      <Typography variant="h6" sx={{ marginLeft: 2 }}>
+        Percorsi
+      </Typography>
+    </Box>
   );
 };
 
@@ -84,6 +101,7 @@ export const PathDrawer = memo(
         side="left"
         type="path"
         elevation={2}
+        title={<DrawerTitle />}
       >
         {!pathQuery.data || (pathQuery.isLoading && <CircularProgress />)}
         {pathQuery.data && (
@@ -117,14 +135,6 @@ export const PathDrawer = memo(
             </Grid>
 
             <DrawerDivider margin={1} />
-
-            {/* <DrawerBox align="left" grow>
-            <Typography>
-              <div
-                dangerouslySetInnerHTML={{ __html: data.fields.introduction }}
-              />
-            </Typography>
-          </DrawerBox>  */}
           </>
         )}
       </Drawer>

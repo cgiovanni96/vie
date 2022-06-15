@@ -10,6 +10,7 @@ import { Mark } from "@vie/modules/Map/types";
 import { formatMarksForClustering } from "../utils";
 import { typeToIcon } from "../icons";
 import { InfoDrawer } from "./InfoDrawer";
+import { useLayerStore } from "@vie/stores/useLayerStore";
 
 type Props = {
   marks: Mark[];
@@ -20,6 +21,7 @@ export const Markers = memo(
   ({ marks, zoom }: Props) => {
     const [selectedMark, setSelectedMark] = useState<Mark>();
     const map = MapGl.useMap();
+    const { selectedFeature, setSelectedFeature } = useLayerStore();
 
     const formattedMarks = useMemo(
       () => formatMarksForClustering(marks),
@@ -88,7 +90,10 @@ export const Markers = memo(
                 key={cluster.id}
                 latitude={latitude as number}
                 longitude={longitude as number}
-                onClick={() => setSelectedMark(cluster.properties as Mark)}
+                onClick={() => {
+                  setSelectedMark(cluster.properties as Mark);
+                  selectedFeature && setSelectedFeature(undefined);
+                }}
                 clickTolerance={0.5}
               >
                 <MarkerIcon sx={{ color: blueGrey[900] }} />

@@ -3,7 +3,6 @@ import * as MapGl from "react-map-gl";
 import { MAP } from "@vie/constants";
 import { Children } from "@vie/types/types";
 import { useLayerStore } from "@vie/stores/useLayerStore";
-import { PathDrawer } from "./Paths/PathDrawer";
 
 type Props = {
   viewState: Partial<MapGl.ViewState>;

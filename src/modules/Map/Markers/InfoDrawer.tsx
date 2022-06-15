@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { Box, Divider, Typography } from "@mui/material";
+import { memo, Suspense } from "react";
+import { Box, CircularProgress, Divider, Typography } from "@mui/material";
 
 import { useGetImage } from "@vie/api/queries/getImage";
 import { Mark } from "@vie/modules/Map/types";
@@ -8,6 +8,7 @@ import { Children } from "@vie/types/types";
 import { TextSwitcher } from "@vie/modules/Map/Text";
 import { TypeEnum, Text } from "@vie/modules/Map/types";
 import { typeToIcon } from "../icons";
+import { useLayerStore } from "@vie/stores/useLayerStore";
 
 export type DrawerDrividerProps = {
   margin: number;
@@ -28,6 +29,7 @@ const DrawerBox = ({ children, align, grow }: DrawerBoxProps) => {
         marginLeft: "auto",
         marginRight: "auto",
         marginTop: 2,
+        marginBottom: 2,
         textAlign: align,
         flex: grow ? 1 : 0,
         display: "flex",
@@ -61,6 +63,8 @@ const DrawerTitle = ({ type, text }: { type?: TypeEnum; text?: Text }) => {
 
 export const InfoDrawer = memo(
   ({ mark, clearMark }: Props) => {
+    const { selectedFeature } = useLayerStore();
+
     const closeDrawer = () => {
       clearMark();
     };
@@ -72,7 +76,7 @@ export const InfoDrawer = memo(
 
     return (
       <Drawer
-        visible={mark !== undefined}
+        visible={mark !== undefined && selectedFeature === undefined}
         close={() => closeDrawer()}
         title={
           <DrawerTitle
@@ -86,18 +90,30 @@ export const InfoDrawer = memo(
       >
         {mark && (
           <>
-            {imageQuery.data && (
+            {imageQuery.data ? (
               <img
                 src={URL.createObjectURL(imageQuery.data)}
                 alt={mark && mark.media[0]}
                 width="100%"
                 height="300px"
-                style={{ objectFit: "cover" }}
+                style={{
+                  objectFit: "cover",
+                }}
               />
+            ) : (
+              <Box
+                sx={{
+                  height: "300px",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
             )}
-
             <DrawerDivider margin={1} />
-
             <DrawerBox align="left" grow>
               <Typography>
                 <TextSwitcher text={mark.text} />
