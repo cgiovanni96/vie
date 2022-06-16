@@ -17,7 +17,10 @@ export const Navigation = ({
   return (
     <>
       {!matches && (
-        <MobileNavigation toggleFilterVisibility={toggleFilterVisibility} />
+        <MobileNavigation
+          toggleMenuVisibility={toggleMenuVisibility}
+          toggleFilterVisibility={toggleFilterVisibility}
+        />
       )}
       {matches && (
         <DesktopNavigation

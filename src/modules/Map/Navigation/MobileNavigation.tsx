@@ -1,12 +1,17 @@
 import { FilterAlt as Filter } from "@mui/icons-material";
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import { LanguageSwitcher } from "@vie/components/LanguageSwitcher";
 import { APP } from "@vie/constants";
 
 type Props = {
   toggleFilterVisibility: () => void;
+  toggleMenuVisibility: () => void;
 };
 
-export const MobileNavigation = ({ toggleFilterVisibility }: Props) => {
+export const MobileNavigation = ({
+  toggleFilterVisibility,
+  toggleMenuVisibility,
+}: Props) => {
   return (
     <AppBar
       position="fixed"
@@ -19,9 +24,21 @@ export const MobileNavigation = ({ toggleFilterVisibility }: Props) => {
       }}
     >
       <Toolbar sx={{ minHeight: "0 !important", padding: 1 }}>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <IconButton
+          size="small"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={toggleMenuVisibility}
+        >
+          <img src="/media/logo.png" alt="logo" width={34} height={34} />
+        </IconButton>
+        <Typography variant="subtitle1" component="div" sx={{ flexGrow: 1 }}>
           {APP.name}
         </Typography>
+
+        <LanguageSwitcher />
         <IconButton
           size="small"
           edge="start"

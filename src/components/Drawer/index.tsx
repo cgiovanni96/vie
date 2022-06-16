@@ -44,7 +44,7 @@ export const Drawer = ({
 
   return (
     <>
-      {type === "navigation" || matches ? (
+      {matches ? (
         <MuiDrawer
           anchor={side}
           open={visible}

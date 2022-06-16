@@ -1,5 +1,5 @@
 export const APP = {
-  name: "VIEDIARDESIA",
+  name: "VieDiArdesia",
 };
 
 export const MAP = {
