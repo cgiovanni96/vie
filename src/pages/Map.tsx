@@ -59,7 +59,10 @@ export const MapPage = () => {
       />
       <PathDrawer
         featurePath={layerStore.selectedFeature}
-        close={() => layerStore.setSelectedFeature(undefined)}
+        close={() => {
+          layerStore.setSelectedFeature(undefined);
+          layerStore.setClickedLayer(undefined);
+        }}
       />
       {marksQuery.data && (
         <Map
