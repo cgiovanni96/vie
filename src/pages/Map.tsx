@@ -21,7 +21,7 @@ import { BlankPaths } from "@vie/modules/Map/Paths/BlankPaths";
 import { Paths } from "@vie/modules/Map/Paths";
 import { Navigation } from "@vie/modules/Map/Navigation";
 import { useGetInteractiveIds } from "@vie/hooks/useGetInteractiveIds";
-import { Menu } from "@vie/modules/Map/Navigation/Menu";
+import { Menu } from "@vie/components/Menu";
 import { FilterMenu } from "@vie/modules/Map/FilterMenu";
 import { PathDrawer } from "@vie/modules/Map/Paths/PathDrawer";
 import { useLayerStore } from "@vie/stores/useLayerStore";
@@ -52,7 +52,11 @@ export const MapPage = () => {
         toggleMenuVisibility={() => setMenuVisibility(!menuVisibility)}
         toggleFilterVisibility={() => setFilterVisibility(!filterVisibility)}
       />
-      <Menu visible={menuVisibility} close={() => setMenuVisibility(false)} />
+      <Menu
+        visible={menuVisibility}
+        close={() => setMenuVisibility(false)}
+        type="navigation"
+      />
       <FilterMenu
         visible={filterVisibility}
         close={() => setFilterVisibility(false)}

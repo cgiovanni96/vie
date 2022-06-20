@@ -5,10 +5,12 @@ import {
   SwipeableDrawer,
   useMediaQuery,
 } from "@mui/material";
-import { grey } from "@mui/material/colors";
+import { blueGrey, grey } from "@mui/material/colors";
 import { useTheme } from "@mui/system";
 import { ReactNode } from "react";
 import { Header } from "./Header";
+
+export type DrawerType = "navigation" | "path" | "filter" | "home";
 
 export type DrawerProps = {
   visible: boolean;
@@ -16,7 +18,7 @@ export type DrawerProps = {
   elevation: number;
   children: ReactNode;
   title?: string | ReactNode;
-  type: "navigation" | "path" | "filter";
+  type: DrawerType;
   side: "left" | "right";
 };
 
@@ -44,7 +46,7 @@ export const Drawer = ({
 
   return (
     <>
-      {matches ? (
+      {type === "home" || matches ? (
         <MuiDrawer
           anchor={side}
           open={visible}
@@ -69,7 +71,11 @@ export const Drawer = ({
                   ? "300px"
                   : type === "path"
                   ? "400px"
+                  : type === "home"
+                  ? "100vw"
                   : "400px",
+
+              backgroundColor: blueGrey[50],
             },
           }}
         >
@@ -83,6 +89,7 @@ export const Drawer = ({
           onClose={close}
           onOpen={() => console.log("open")}
           disableSwipeToOpen={false}
+          sx={{ backgroundColor: blueGrey[50] }}
         >
           <Puller />
           <Header close={close} title={title} />

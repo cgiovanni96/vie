@@ -1,4 +1,4 @@
-import { Drawer } from "@vie/components/Drawer";
+import { Drawer, DrawerType } from "@vie/components/Drawer";
 import { Info, Directions, Map } from "@mui/icons-material";
 import {
   List,
@@ -7,10 +7,12 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 type NavigationMenuProps = {
   visible: boolean;
   close: () => void;
+  type: DrawerType;
 };
 
 const RoutingData: Array<{ icon: JSX.Element; text: string; path: string }> = [
@@ -22,26 +24,27 @@ const RoutingData: Array<{ icon: JSX.Element; text: string; path: string }> = [
 const Routing = () => {
   return (
     <List>
-      {RoutingData.map(({ icon, text }, id) => (
-        <ListItem key={id}>
-          <ListItemButton>
-            <ListItemIcon>{icon}</ListItemIcon>
-            <ListItemText>{text}</ListItemText>
-          </ListItemButton>
-        </ListItem>
+      {RoutingData.map(({ icon, text, path }, id) => (
+        <Link to={path} key={id}>
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText>{text}</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </Link>
       ))}
     </List>
   );
 };
 
-export const Menu = ({ visible, close }: NavigationMenuProps) => {
+export const Menu = ({ visible, close, type }: NavigationMenuProps) => {
   return (
     <Drawer
       visible={visible}
       close={close}
       elevation={2}
-      type="navigation"
-      title="VieDiArdesia"
+      type={type}
       side="left"
     >
       <Routing />
