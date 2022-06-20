@@ -2,6 +2,8 @@
     "translation": {
         "name": "Road",
         "filterMenuHeader": "Filter",
-        "pathDrawerTitle": "Hikes"
+        "pathDrawerTitle": "Hikes",
+        "heroSubtitle": "A new tool to explore <span>our</span> paths",
+        "heroCta": "See the map"
     }
 }

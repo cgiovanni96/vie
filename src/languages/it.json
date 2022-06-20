@@ -2,6 +2,8 @@
     "translation": {
         "name": "VieDiArdesia",
         "filterMenuHeader": "Filtri",
-        "pathDrawerTitle": "Sentieri"
+        "pathDrawerTitle": "Sentieri",
+        "heroSubtitle": "Un nuovo strumento per scoprire i <span>nostri</span> sentieri",
+        "heroCta": "Vai alla mappa"
     }
 }
