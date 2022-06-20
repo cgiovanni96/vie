@@ -6,6 +6,8 @@ import {
   ListItemIcon,
   ListItemText,
   Checkbox,
+  Container,
+  CircularProgress,
 } from "@mui/material";
 
 import { useMarksStore } from "@vie/stores/useMarksStore";
@@ -28,7 +30,18 @@ export const FilterList = () => {
 
   return (
     <>
-      {status === "loading" && <>Loading</>}
+      {status === "loading" && (
+        <Container
+          sx={(theme) => ({
+            width: "100vw",
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: theme.spacing(2),
+          })}
+        >
+          <CircularProgress />
+        </Container>
+      )}
 
       {status === "success" && groups && (
         <List sx={{ width: "100%", bgcolor: "background.paper" }}>
