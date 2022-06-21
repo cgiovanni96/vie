@@ -1,5 +1,12 @@
+import { Typography } from "@mui/material";
 import { Page } from "@vie/components/Page";
+import { useTranslation } from "react-i18next";
 
 export const AboutPage = () => {
-  return <Page> Chi siamo</Page>;
+  const { t } = useTranslation();
+  return (
+    <Page>
+      <Typography textAlign="justify">{t("aboutText")}</Typography>
+    </Page>
+  );
 };

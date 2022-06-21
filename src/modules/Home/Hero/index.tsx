@@ -3,6 +3,7 @@ import { green } from "@mui/material/colors";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import ArrowIcon from "@mui/icons-material/ArrowForward";
+import { motion } from "framer-motion";
 
 export const Hero = () => {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ export const Hero = () => {
         }}
       >
         <Box
-          component="img"
+          component={motion.img}
           src="/media/logo.png"
           alt="Logo vie di ardesia"
           sx={{
@@ -26,6 +27,8 @@ export const Hero = () => {
             objectFit: "cover",
             margin: { lg: "0 auto" },
           }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
         />
       </Container>
 
@@ -55,9 +58,8 @@ export const Hero = () => {
             "& span": { color: green[700], fontWeight: "bold" },
             textAlign: { xs: "center", lg: "left" },
           }}
-        >
-          <p dangerouslySetInnerHTML={{ __html: t("heroSubtitle") }} />
-        </Typography>
+          dangerouslySetInnerHTML={{ __html: t("heroSubtitle") }}
+        />
 
         <Box
           sx={(theme) => ({

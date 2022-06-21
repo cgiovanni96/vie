@@ -22,7 +22,7 @@ export const Page = ({ full, children }: Props) => {
         flex={1}
         sx={{
           margin: { xs: "0 1rem", lg: full ? "0 1rem" : "0 auto" },
-          width: { xs: "100%", lg: full ? "100%" : "75%" },
+          maxWidth: { xs: "100%", lg: full ? "100%" : "75%" },
         }}
       >
         {children}
