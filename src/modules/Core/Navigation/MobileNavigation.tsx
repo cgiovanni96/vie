@@ -5,6 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountIcon from "@mui/icons-material/AccountCircle";
 import { Menu } from "@vie/components/Menu";
 import { useState } from "react";
+import { LanguageSwitcher } from "@vie/components/LanguageSwitcher";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "transparent",
@@ -24,6 +25,7 @@ export const MobileNavigation = () => {
           {/* <IconButton>
           <AccountIcon sx={{ color: blueGrey[800] }} fontSize="medium" />
         </IconButton> */}
+          <LanguageSwitcher />
         </Toolbar>
       </StyledAppBar>
     </>
