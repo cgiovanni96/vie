@@ -31,7 +31,7 @@ export const Markers = memo(
       return map.current
         ? map.current.getMap().getBounds().toArray().flat()
         : null;
-    }, [map]);
+    }, [map, zoom]);
 
     const { clusters, supercluster } = useSupercluster({
       points: formattedMarks,
