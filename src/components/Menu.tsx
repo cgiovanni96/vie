@@ -41,8 +41,15 @@ export const Routing = ({ row }: Props) => {
       {RoutingData.map(({ icon, text, path }, id) => (
         <Link to={path} key={id}>
           <ListItem>
-            <ListItemButton sx={{ background: blueGrey[100], py: 2 }}>
-              <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemButton
+              sx={{
+                background: { xs: blueGrey[100], lg: "inherit" },
+                py: { xs: 2, lg: 1 },
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: { xs: "48px", lg: "36px" } }}>
+                {icon}
+              </ListItemIcon>
               <ListItemText>{t(text)}</ListItemText>
             </ListItemButton>
           </ListItem>
