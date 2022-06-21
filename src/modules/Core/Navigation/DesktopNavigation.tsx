@@ -1,5 +1,4 @@
 import { AppBar, Toolbar } from "@mui/material";
-import { blueGrey } from "@mui/material/colors";
 import { styled } from "@mui/system";
 import { Routing } from "@vie/components/Menu";
 
@@ -12,10 +11,6 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 const StyledToolbar = styled(Toolbar)(() => ({
   display: "flex",
   justifyContent: "space-between",
-  "& a": {
-    color: blueGrey[900],
-    textDecoration: "none",
-  },
 }));
 
 export const DesktopNavigation = () => {

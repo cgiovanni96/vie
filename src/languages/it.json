@@ -4,6 +4,11 @@
         "filterMenuHeader": "Filtri",
         "pathDrawerTitle": "Sentieri",
         "heroSubtitle": "Un nuovo strumento per scoprire i <span>nostri</span> sentieri",
-        "heroCta": "Vai alla mappa"
+        "heroCta": "Vai alla mappa",
+        "routingTitle": "Naviga",
+        "routingHome": "Home",
+        "routingAbout": "Chi siamo",
+        "routingMap": "La Mappa",
+        "routingHike": "I Sentieri"
     }
 }

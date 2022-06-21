@@ -4,6 +4,11 @@
         "filterMenuHeader": "Filter",
         "pathDrawerTitle": "Hikes",
         "heroSubtitle": "A new tool to explore <span>our</span> paths",
-        "heroCta": "See the map"
+        "heroCta": "See the map",
+        "routingTitle": "Navigation",
+        "routingHome": "Home",
+        "routingAbout": "About us",
+        "routingMap": "The Map",
+        "routingHike": "The Hikes"
     }
 }
