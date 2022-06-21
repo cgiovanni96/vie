@@ -3,7 +3,7 @@ import { Hero } from "@vie/modules/Home/Hero";
 
 export const HomePage = () => {
   return (
-    <Page>
+    <Page full>
       <Hero />
     </Page>
   );
