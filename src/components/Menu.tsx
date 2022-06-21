@@ -21,7 +21,7 @@ const RoutingData: Array<{ icon: JSX.Element; text: string; path: string }> = [
   { icon: <Home />, text: "routingHome", path: "/" },
   { icon: <Info />, text: "routingAbout", path: "/chi-siamo" },
   { icon: <Map />, text: "routingMap", path: "/mappa" },
-  { icon: <Directions />, text: "routingHike", path: "sentieri" },
+  { icon: <Directions />, text: "routingHike", path: "/sentieri" },
 ];
 
 type Props = {
