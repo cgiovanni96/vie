@@ -21,9 +21,13 @@ const RoutingData: Array<{ icon: JSX.Element; text: string; path: string }> = [
   { icon: <Directions />, text: "I Sentieri", path: "sentieri" },
 ];
 
-const Routing = () => {
+type Props = {
+  row?: boolean;
+};
+
+export const Routing = ({ row }: Props) => {
   return (
-    <List>
+    <List sx={{ display: row ? "flex" : "inherit" }}>
       {RoutingData.map(({ icon, text, path }, id) => (
         <Link to={path} key={id}>
           <ListItem>
