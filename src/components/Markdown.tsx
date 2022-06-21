@@ -8,7 +8,7 @@ export const Markdown = ({ text }: { text: string }) => {
       children={text}
       components={{
         p({ node, className, children, ...props }) {
-          return <Typography {...props}> {children} </Typography>;
+          return <Typography {...props}>{children}</Typography>;
         },
         h2({ node, children, ...props }) {
           return (

@@ -90,6 +90,7 @@ export const Drawer = ({
           onOpen={() => console.log("open")}
           disableSwipeToOpen={false}
           sx={{ backgroundColor: blueGrey[50] }}
+          ModalProps={{ sx: { background: "transparent" } }}
         >
           <Puller />
           <Header close={close} title={title} />

@@ -9,6 +9,9 @@ import { TextSwitcher } from "@vie/modules/Map/Text";
 import { TypeEnum, Text } from "@vie/modules/Map/types";
 import { typeToIcon } from "../icons";
 import { useLayerStore } from "@vie/stores/useLayerStore";
+import { useLanguageStore } from "@vie/stores/useLanguageStore";
+import { getText } from "../utils";
+import { Markdown } from "@vie/components/Markdown";
 
 export type DrawerDrividerProps = {
   margin: number;
@@ -65,6 +68,8 @@ export const InfoDrawer = memo(
   ({ mark, clearMark }: Props) => {
     const { selectedFeature } = useLayerStore();
 
+    const { language } = useLanguageStore();
+
     const closeDrawer = () => {
       clearMark();
     };
@@ -115,9 +120,7 @@ export const InfoDrawer = memo(
             )}
             <DrawerDivider margin={1} />
             <DrawerBox align="left" grow>
-              <Typography>
-                <TextSwitcher text={mark.text} />
-              </Typography>
+              <Markdown text={`${getText(mark.text, language)}`} />
             </DrawerBox>
           </>
         )}
