@@ -12,7 +12,8 @@ export const Hero = () => {
       <Container
         sx={{
           width: { xs: "80%" },
-          margin: "0 auto",
+          margin: { xs: "0 auto" },
+          transform: { lg: "translateX(20%)" },
           flex: { lg: 1 },
         }}
       >
@@ -21,7 +22,7 @@ export const Hero = () => {
           src="/media/logo.png"
           alt="Logo vie di ardesia"
           sx={{
-            width: { xs: "100%", lg: "50%" },
+            width: { xs: "100%", lg: "45%" },
             objectFit: "cover",
             margin: { lg: "0 auto" },
           }}
@@ -34,6 +35,7 @@ export const Hero = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: { xs: "center", lg: "flex-start" },
+          justifyContent: { xs: "flex-start", lg: "center" },
           marginTop: { xs: theme.spacing(2), lg: "none" },
         })}
       >
@@ -46,35 +48,40 @@ export const Hero = () => {
         </Typography>
 
         <Typography
-          textAlign="center"
           lineHeight="2rem"
           sx={{
             fontSize: "36px",
-            width: { xs: "90%", lg: "100%" },
+            width: { xs: "90%", lg: "60%" },
             "& span": { color: green[700], fontWeight: "bold" },
+            textAlign: { xs: "center", lg: "left" },
           }}
         >
           <p dangerouslySetInnerHTML={{ __html: t("heroSubtitle") }} />
         </Typography>
-      </Container>
 
-      <Box
-        sx={(theme) => ({
-          display: "flex",
-          justifyContent: "center",
-          marginTop: theme.spacing(2),
-        })}
-      >
-        <Button
-          component={Link}
-          to="/mappa"
-          variant="contained"
-          sx={{ boxShadow: "none", backgroundColor: green[700] }}
-          endIcon={<ArrowIcon />}
+        <Box
+          sx={(theme) => ({
+            display: "flex",
+            justifyContent: "center",
+            marginTop: { xs: theme.spacing(2), lg: theme.spacing(4) },
+          })}
         >
-          {t("heroCta")}
-        </Button>
-      </Box>
+          <Button
+            component={Link}
+            to="/mappa"
+            variant="contained"
+            sx={{
+              boxShadow: "none",
+              backgroundColor: green[700],
+              py: 2,
+              "&:hover": { backgroundColor: green[800] },
+            }}
+            endIcon={<ArrowIcon />}
+          >
+            {t("heroCta")}
+          </Button>
+        </Box>
+      </Container>
     </Stack>
   );
 };
