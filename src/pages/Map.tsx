@@ -25,6 +25,7 @@ import { Menu } from "@vie/components/Menu";
 import { FilterMenu } from "@vie/modules/Map/FilterMenu";
 import { PathDrawer } from "@vie/modules/Map/Paths/PathDrawer";
 import { useLayerStore } from "@vie/stores/useLayerStore";
+import { Box, CircularProgress } from "@mui/material";
 
 export const MapPage = () => {
   const [view, setView] = useState<Partial<ViewState>>(MAP.initialState);
@@ -47,7 +48,7 @@ export const MapPage = () => {
   const { interactiveIds } = useGetInteractiveIds(pathsQuery.data);
 
   return (
-    <Suspense fallback={<>Loading</>}>
+    <>
       <Navigation
         toggleMenuVisibility={() => setMenuVisibility(!menuVisibility)}
         toggleFilterVisibility={() => setFilterVisibility(!filterVisibility)}
@@ -68,7 +69,7 @@ export const MapPage = () => {
           layerStore.setClickedLayer(undefined);
         }}
       />
-      {marksQuery.data && (
+      {marksQuery.data ? (
         <Map
           viewState={view}
           setViewState={(viewState) => setView(viewState)}
@@ -83,7 +84,19 @@ export const MapPage = () => {
 
           {blankPathsQuery.data && <BlankPaths data={blankPathsQuery.data} />}
         </Map>
+      ) : (
+        <Box
+          sx={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress size={80} />
+        </Box>
       )}
-    </Suspense>
+    </>
   );
 };

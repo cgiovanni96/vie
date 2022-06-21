@@ -9,7 +9,7 @@ export const MAP = {
   initialState: {
     latitude: 44.30327431247439,
     longitude: 9.386529922485352,
-    zoom: 20,
+    zoom: 13.5,
     bearing: 25,
   },
 };
