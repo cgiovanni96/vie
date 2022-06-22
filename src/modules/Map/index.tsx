@@ -3,6 +3,7 @@ import * as MapGl from "react-map-gl";
 import { MAP } from "@vie/constants";
 import { Children } from "@vie/types/types";
 import { useLayerStore } from "@vie/stores/useLayerStore";
+import { Box } from "@mui/material";
 
 type Props = {
   viewState: Partial<MapGl.ViewState>;
@@ -19,7 +20,11 @@ export const Map = ({
   const store = useLayerStore();
 
   return (
-    <>
+    <Box
+      sx={{
+        "& .mapboxgl-ctrl-bottom-right": { marginBottom: { xs: 3, lg: 0 } },
+      }}
+    >
       <MapGl.Map
         reuseMaps
         id="mapRef"
@@ -55,11 +60,14 @@ export const Map = ({
         }}
       >
         <MapGl.NavigationControl position="bottom-right" />
-        <MapGl.GeolocateControl position="bottom-right" />
+        <MapGl.GeolocateControl
+          positionOptions={{ enableHighAccuracy: true }}
+          position="bottom-right"
+        />
 
         {children}
       </MapGl.Map>
-    </>
+    </Box>
   );
 };
 
