@@ -1,4 +1,7 @@
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
+import { blue } from "@mui/material/colors";
+import { Link } from "react-router-dom";
+import { KeyboardDoubleArrowLeft } from "@mui/icons-material";
 
 type Props = {
   title: string;
@@ -7,7 +10,25 @@ type Props = {
 
 export const Title = ({ title, subtitle }: Props) => {
   return (
-    <Container sx={{ padding: "0", marginTop: { xs: 2, lg: 4 } }}>
+    <Container sx={{ padding: "0", marginTop: { xs: 2 } }}>
+      <Typography
+        fontSize={14}
+        sx={{ "& a": { color: blue[600], textDecoration: "none" } }}
+        textAlign="center"
+        mb={2}
+      >
+        <Box
+          component={Link}
+          to="/sentieri"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <KeyboardDoubleArrowLeft /> Torna ai sentieri
+        </Box>
+      </Typography>
       <Typography
         textAlign="center"
         fontWeight="bold"
