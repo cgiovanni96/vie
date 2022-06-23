@@ -9,7 +9,7 @@ import { useScroll } from "@vie/hooks/useScroll";
 
 const StyledAppBar = styled(AppBar)(({ scrolled }: { scrolled: boolean }) => ({
   backgroundColor: blueGrey[50],
-  boxShadow: scrolled ? "6px 0 10px rgba(0,0,0,.2)" : "none",
+  boxShadow: scrolled ? "0 2px 6px rgba(0,0,0,.1)" : "none",
 }));
 
 export const MobileNavigation = () => {

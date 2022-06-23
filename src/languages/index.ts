@@ -5,9 +5,11 @@ import { initReactI18next } from "react-i18next";
 import eng from "./eng.json";
 import it from "./it.json";
 
+import { hikesIT, hikesENG } from "./hikes";
+
 const resources = {
-  it: { ...it },
-  eng: { ...eng },
+  it: { translation: { ...it, ...hikesIT } },
+  eng: { translation: { ...eng, ...hikesENG } },
 };
 
 i18n.use(initReactI18next).init({

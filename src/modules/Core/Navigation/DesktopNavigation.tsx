@@ -6,7 +6,7 @@ import { Routing } from "@vie/components/Menu";
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "white",
   marginBottom: theme.spacing(4),
-  boxShadow: "4px 0 8px rgba(0,0,0,.1)",
+  boxShadow: "0 2px 6px rgba(0,0,0,.1)",
 }));
 
 const StyledToolbar = styled(Toolbar)(() => ({
