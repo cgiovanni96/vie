@@ -112,7 +112,7 @@ export const PathDrawer = memo(
               <Typography variant="body1" sx={{ paddingRight: 10 }}>
                 {pathQuery.data.title}
               </Typography>
-              <a href={`/sentieri/`}>
+              <a href={`/sentieri/${pathQuery.data.name}`}>
                 <Button component="a" variant="contained" disableElevation>
                   <MenuBook />
                 </Button>

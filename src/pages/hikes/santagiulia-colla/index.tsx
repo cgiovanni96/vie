@@ -5,8 +5,8 @@ import { Markdown } from "@vie/components/Markdown";
 import { Page } from "@vie/components/Page";
 import { useTranslation } from "react-i18next";
 
-import { Summary } from "../Summary";
-import { Title } from "../Title";
+import { Summary } from "@vie/modules/Hikes/Summary";
+import { Title } from "@vie/modules/Hikes/Title";
 
 export const SantaGiuliaColla = () => {
   const { t } = useTranslation();

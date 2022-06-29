@@ -9,7 +9,11 @@ export const Hero = () => {
   const { t } = useTranslation();
 
   return (
-    <Stack sx={{ flexDirection: { xs: "column", lg: "row" } }}>
+    <Stack
+      sx={{
+        flexDirection: { xs: "column", lg: "row" },
+      }}
+    >
       <Container
         sx={{
           width: { xs: "80%" },

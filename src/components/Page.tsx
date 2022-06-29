@@ -21,6 +21,8 @@ export const Page = ({ full, children }: Props) => {
         direction="column"
         flex={1}
         sx={{
+          height: full ? "100%" : "inherit",
+          justifyContent: full ? "center" : "flex-start",
           margin: { xs: "0 1rem", lg: full ? "0 1rem" : "0 auto" },
           maxWidth: { xs: "100%", lg: full ? "100%" : "75%" },
         }}
